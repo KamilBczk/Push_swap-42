@@ -6,51 +6,11 @@
 /*   By: kamilbiczyk <kamilbiczyk@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 22:05:31 by kamilbiczyk       #+#    #+#             */
-/*   Updated: 2021/09/28 22:36:48 by kamilbiczyk      ###   ########.fr       */
+/*   Updated: 2021/09/29 21:02:50 by kamilbiczyk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-int **input_checker_to_table(int argc, char **argv)
-{
-    int i;
-    int **numbers;
-
-    i = 0;
-    numbers = malloc(sizeof(int) * argc);
-    if (numbers == NULL)
-        return (NULL);
-    while (i + 1 < argc)
-    {
-        i++;
-        printf("%d : %s\n", i, argv[i]);
-    }
-    return (0);
-}
-
-int input_checker_if_number(int argc, char **argv)
-{
-    int i;
-    int f;
-
-    i = 1;
-    f = 0;
-    while (i < argc)
-    {
-        while (argv[i][f] != '\0')
-        {
-            if (!(argv[i][f] >= 48 && argv[i][f] <= 57))
-                return (-1);
-            f++;
-        }
-        f = 0;
-        i++;
-    }
-    return (0);
-}
+#include "main.h"
 
 void display_error(void)
 {
@@ -59,9 +19,11 @@ void display_error(void)
 
 int main(int argc, char **argv)
 {
+    int *numbers_table;
+
     if (input_checker_if_number(argc, argv) == -1)
         display_error();
-    if (input_checker_to_table(argc, argv) == NULL)
+    numbers_table = input_checker_to_table(argc, argv);
+    if (input_checker_doublons(numbers_table, argc) == -1)
         display_error();
-    
 }
